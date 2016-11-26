@@ -2,8 +2,9 @@ def hosted_zone_map():
     """Map of the AWS Hosted Zone Ids, per region"""
 
     regions = [
-        'us-east-1', 'us-west-1', 'us-west-2', 'ap-south-1', 'ap-northeast-2', 'ap-southeast-1',
-        'ap-southeast-2', 'ap-northeast-1', 'eu-central-1', 'eu-west-1', 'sa-east-1',
+        'us-east-1', 'us-west-1', 'us-west-2', 'ap-south-1', 'ap-northeast-2',
+        'ap-southeast-1', 'ap-southeast-2', 'ap-northeast-1', 'eu-central-1',
+        'eu-west-1', 'sa-east-1',
     ]
 
     # It's easier to copy paste per service, paste them here as input
@@ -35,7 +36,8 @@ def hosted_zone_map():
             'sa-east-1': 'Z2P70J7HTTTPLU',
         },
         'CloudFront': {
-            'all': 'Z2FDTNDATAQYW2',  # Cloudfront has only one hosted zone id (global service)
+            # CloudFront has only one hosted zone id (global service)
+            'all': 'Z2FDTNDATAQYW2',
         }
     }
 
@@ -58,7 +60,9 @@ def ami_map():
     """Map of the AWS AMIs per region"""
     return {
         'us-east-1': {  # N Virginia
-            'AmazonLinux2016090HvmEbs': 'ami-b73b63a0',  # Amazon Linux 2016.09.0 - HVM EBS 64-bit
+            # Amazon Linux 2016.09.0 - HVM EBS 64-bit
+            'AmazonLinux2016090HvmEbs': 'ami-b73b63a0',
+            # Amazon Linux Nat instance 2016.09.0 - HVM EBS 64-bit
             'AmazonNat2016090HvmEbs': 'ami-863b6391',
         },
         'us-east-2': {  # Ohio

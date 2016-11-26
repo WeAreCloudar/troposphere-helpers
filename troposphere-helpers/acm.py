@@ -10,9 +10,10 @@ module_path = os.path.dirname(__file__)
 
 def global_acm_resources(template, acm_properties):
     """
-    Add a function to create a global ACM cert and invoke it for each object in acm_properties
-    The obejcts in acp_properties should contain the same properties as when creating a normal
-    ACM certificate
+    Add a function to create a global ACM cert and invoke it for each object in
+    acm_properties.
+    The obejcts in acp_properties should contain the same properties as when
+    creating a normal ACM certificate
 
     :type acm_properties list
     :rtype tuple
@@ -22,7 +23,8 @@ def global_acm_resources(template, acm_properties):
 
     write_logs_policy = template.add_resource(ManagedPolicy(
         "WriteLogsPolicy",
-        Description='Allow Creating Log Group, Log Stream and putting logs in it',
+        Description='Allow Creating Log Groups, Log Streams and putting logs '
+                    'in it',
         PolicyDocument={
             "Version": "2012-10-17",
             "Statement": [{

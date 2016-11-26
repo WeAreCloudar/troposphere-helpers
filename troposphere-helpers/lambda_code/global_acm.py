@@ -1,5 +1,5 @@
 import boto3
-import cfnresponse
+import cfnresponse as cfn
 import re
 
 
@@ -15,9 +15,9 @@ def lambda_handler(event, context):
         if request_type == "Delete":
             try:
                 acm.delete_certificate(CertificateArn=resource_id)
-                cfnresponse.send(event, context, cfnresponse.SUCCESS, {}, resource_id)
+                cfn.send(event, context, cfn.SUCCESS, {}, resource_id)
             except Exception as e:
-                cfnresponse.send(event, context, cfnresponse.FAILED, {}, resource_id)
+                cfn.send(event, context, cfn.FAILED, {}, resource_id)
             finally:
                 return
 
@@ -25,11 +25,15 @@ def lambda_handler(event, context):
             domain_name = event['ResourceProperties']['DomainName']
         except KeyError as e:
             print("Missing parameter")
-            cfnresponse.send(event, context, cfnresponse.FAILED, {}, resource_id)
+            cfn.send(event, context, cfn.FAILED, {}, resource_id)
             raise e
         sans = event['ResourceProperties'].get('SubjectAlternativeNames', None)
-        domain_validation_options = event['ResourceProperties'].get('DomainValidationOptions', None)
-        idempotency_token = not_allowed_in_token.sub('', context.aws_request_id)[:32]
+        domain_validation_options = event['ResourceProperties'].get(
+            'DomainValidationOptions', None
+        )
+        idempotency_token = not_allowed_in_token.sub(
+            '', context.aws_request_id
+        )[:32]
 
         response = acm.request_certificate(
             DomainName=domain_name,
@@ -40,7 +44,7 @@ def lambda_handler(event, context):
 
         response_data = {'Arn': response['CertificateArn']}
         resource_id = response['CertificateArn']
-        cfnresponse.send(event, context, cfnresponse.SUCCESS, response_data, resource_id)
+        cfn.send(event, context, cfn.SUCCESS, response_data, resource_id)
     except Exception as e:
-        cfnresponse.send(event, context, cfnresponse.FAILED, {}, resource_id)
+        cfn.send(event, context, cfn.FAILED, {}, resource_id)
         raise e

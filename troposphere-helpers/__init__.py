@@ -1,5 +1,6 @@
 from troposphere import Ref, BaseAWSObject, AWS_NO_VALUE
 
+
 def no_value():
     """Shortcut to add no value in CloudFormation"""
     return Ref(AWS_NO_VALUE)
@@ -49,4 +50,6 @@ class MetadataHelper(object):
 
         parameter = get_resource_name(parameter)
 
-        self.template.metadata[meta_key][labels_key][parameter] = {"default": label}
+        self.template.metadata[meta_key][labels_key][parameter] = {
+            "default": label
+        }
