@@ -2,7 +2,7 @@ from setuptools import setup
 
 setup(
     name='troposphere-helpers',
-    version='0.0.1',
+    version='0.0.2',
     description='Helper functions and classes for troposphere Templates',
     url='https://github.com/wearecloudar/troposphere-helpers',
     author='Ben Bridts',
